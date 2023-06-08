@@ -1,2 +1,4 @@
-# multipass-bash
-Custom Multipass images for bash basic development
+MULTIPASS-BASH
+==============
+
+Custom Multipass images for bash basic development.
