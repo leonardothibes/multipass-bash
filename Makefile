@@ -5,13 +5,16 @@ VERSION=$(shell sed 's/[\", ]//g' package.json | grep version | cut -d: -f2)
 build: .clear
 	@rm -Rf build
 	@cd src ; packer build template.json
-	@mv src/output-qemu build
+	# @mv src/output-qemu build
 
 install: .clear
 	@sudo apt install packer
 
 clean:
-	@rm -Rf build dist src/output-qemu src/packer_cache
+	@rm -Rf build dist src/output-qemu
+
+reset: clean
+	@rm -Rf src/packer_cache
 
 .clear:
 	@clear
@@ -22,7 +25,10 @@ help: .clear
 	@echo ""
 	@echo "  build (default)    Build da imagem"
 	@echo "  install            Instala as dependências"
-	@echo "  clean              Apaga as os arquivos de build do projeto"
+	@echo ""
+	@echo "  clean              Apaga as os arquivos de build"
+	@echo "  reset              Retorna o projeto ao seu estado original"
+	@echo ""
 	@echo "  help               Exibe esta mensagem de HELP"
 	@echo ""
 
