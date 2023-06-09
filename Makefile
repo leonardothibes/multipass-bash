@@ -7,8 +7,15 @@ build: .clear .chmod
 	@cd src ; ../bin/packer build template.json
 	@mv src/output-qemu build
 
-install: .clear
-	# @sudo apt install packer
+launch: .clear
+	@multipass launch file://${PWD}/build/packer-qemu -n ${NAME}
+	@multipass ls
+	@echo ""
+	@multipass shell ${NAME}
+
+stop:
+	@multipass delete ${NAME}
+	@multipass purge
 
 clean:
 	@rm -Rf build dist src/output-qemu
@@ -27,7 +34,9 @@ help: .clear
 	@echo "Uso: make [options]"
 	@echo ""
 	@echo "  build (default)    Build da imagem"
-	@echo "  install            Instala as dependências"
+	@echo ""
+	@echo "  launch             Lança um VM no Multipass com a imagem do build"
+	@echo "  stop               Para a VM no Multipass"
 	@echo ""
 	@echo "  clean              Apaga as os arquivos de build"
 	@echo "  reset              Retorna o projeto ao seu estado original"
