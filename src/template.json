@@ -24,7 +24,11 @@
     "provisioners": [
         {
             "type": "shell",
-            "inline": ["wget -qO- https://raw.githubusercontent.com/leonardothibes/multipass/master/scenarios/node.sh | bash"]
+            "inline": [
+                "git clone https://github.com/leonardothibes/multipass-scripts.git /tmp/multipass-scripts",
+                "chmod 755 /tmp/multipass-scripts/scenarios/*",
+                "cd /tmp/multipass-scripts ; ./scenarios/bash.sh"
+            ]
         },
         {
             "type": "shell",
