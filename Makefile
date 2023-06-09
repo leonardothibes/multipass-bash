@@ -1,14 +1,15 @@
 NAME=$(shell sed 's/[\", ]//g' package.json | grep name | cut -d: -f2 | head -1)
 DESC=$(shell sed 's/[\",]//g' package.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//')
 VERSION=$(shell sed 's/[\", ]//g' package.json | grep version | cut -d: -f2)
+IMAGE=${NAME}-${VERSION}
 
 build: .clear .chmod
-	@rm -Rf build
+	@rm -Rf build/${IMAGE}
 	@cd src ; ../bin/packer build template.json
-	@mv src/output-qemu build
+	@mv src/output-qemu/packer-qemu build/${IMAGE}
 
 launch: .clear
-	@multipass launch file://${PWD}/build/packer-qemu -n ${NAME}
+	@multipass launch file://${PWD}/build/${IMAGE} -n ${NAME}
 	@multipass ls
 	@echo ""
 	@multipass shell ${NAME}
@@ -44,4 +45,4 @@ help: .clear
 	@echo "  help               Exibe esta mensagem de HELP"
 	@echo ""
 
-.PHONY: build test
+.PHONY: build
