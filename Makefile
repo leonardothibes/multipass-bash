@@ -2,13 +2,13 @@ NAME=$(shell sed 's/[\", ]//g' package.json | grep name | cut -d: -f2 | head -1)
 DESC=$(shell sed 's/[\",]//g' package.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//')
 VERSION=$(shell sed 's/[\", ]//g' package.json | grep version | cut -d: -f2)
 
-build: .clear
+build: .clear .chmod
 	@rm -Rf build
-	@cd src ; packer build template.json
-	# @mv src/output-qemu build
+	@cd src ; ../bin/packer build template.json
+	@mv src/output-qemu build
 
 install: .clear
-	@sudo apt install packer
+	# @sudo apt install packer
 
 clean:
 	@rm -Rf build dist src/output-qemu
@@ -18,6 +18,9 @@ reset: clean
 
 .clear:
 	@clear
+
+.chmod:
+	@chmod 755 ./bin/*
 
 help: .clear
 	@echo "${DESC} (${NAME} - ${VERSION})"
