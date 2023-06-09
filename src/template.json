@@ -43,7 +43,7 @@
                 "rm -Rf /var/lib/ubuntu-release-upgrader/release-upgrade-available",
                 "rm -Rf /var/lib/update-notifier/fsck-at-reboot /var/lib/update-notifier/hwe-eol",
                 "find /var/log -type f -exec rm {} +",
-                "rm -Rf /tmp/* /tmp/.*-unix /var/tmp/*",
+                "rm -Rf /tmp/* /var/tmp/*",
                 "rm -Rf /home/packer",
                 "/bin/sync",
                 "/sbin/fstrim -v /"
