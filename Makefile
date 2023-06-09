@@ -4,6 +4,7 @@ VERSION=$(shell sed 's/[\", ]//g' package.json | grep version | cut -d: -f2)
 IMAGE=${NAME}-${VERSION}
 
 build: .clear .chmod
+	@[ -d build ] || mkdir build
 	@rm -Rf build/${IMAGE}
 	@cd src ; ../bin/packer build template.json
 	@mv src/output-qemu/packer-qemu build/${IMAGE}
