@@ -5,7 +5,7 @@ IMAGE=${NAME}-${VERSION}
 
 build: .clear .chmod
 	@[ -d build ] || mkdir build
-	@rm -Rf build/${IMAGE}
+	@rm -Rf build/${IMAGE} src/output-qemu
 	@cd src ; ../bin/packer build template.json
 	@mv src/output-qemu/packer-qemu build/${IMAGE}
 
