@@ -24,6 +24,10 @@
     "provisioners": [
         {
             "type": "shell",
+            "inline": ["wget -qO- https://raw.githubusercontent.com/leonardothibes/multipass/master/scenarios/node.sh | bash"]
+        },
+        {
+            "type": "shell",
             "execute_command": "sudo sh -c '{{ .Vars }} {{ .Path }}'",
             "remote_folder": "/tmp",
             "inline": [
