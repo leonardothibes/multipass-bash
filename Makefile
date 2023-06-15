@@ -4,7 +4,7 @@ VERSION=$(shell sed 's/[\", ]//g' package.json | grep version | cut -d: -f2)
 PACKER=https://github.com/leonardothibes/packer-mirror/raw/master/bin/packer-1.9.1
 IMAGE=${NAME}-${VERSION}
 
-build: .clear .chmod
+build: .clear install
 	@[ -d build ] || mkdir build
 	@rm -Rf build/${IMAGE} src/output-qemu
 	@cd src ; ../bin/packer build template.json
@@ -33,9 +33,6 @@ reset: clean
 
 .clear:
 	@clear
-
-.chmod:
-	@chmod 755 ./bin/*
 
 help: .clear
 	@echo "${DESC} (${NAME} - ${VERSION})"
